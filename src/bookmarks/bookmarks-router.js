@@ -35,7 +35,7 @@ bookmarksRouter
             url
         }
         bookmarks.push(newBookmark);
-        res.send(`added new Bookmark at http://localhost:8000/bookmarks/${id}`);
+        res.status(201).json(newBookmark);
     })
 
 bookmarksRouter
@@ -59,7 +59,7 @@ bookmarksRouter
         }
         const index = bookmarks.findIndex(obj => obj.id === id);
         bookmarks.splice(index, 1)
-        res.send(bookmarks)
+        res.status(204).end()
     })
 
 module.exports = bookmarksRouter;

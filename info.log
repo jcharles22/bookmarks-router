@@ -7,3 +7,4 @@
 {"message":"description is required","level":"error"}
 {"message":"title is required","level":"error"}
 {"message":"url is required","level":"error"}
+{"message":"Bookmark with id 1 was not found.","level":"error"}
