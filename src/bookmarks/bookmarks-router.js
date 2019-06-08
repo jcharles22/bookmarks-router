@@ -1,10 +1,12 @@
 const express = require('express');
 const logger = require('../logger');
 const bookmarks = require('../store.json');
+const uuid = require('uuid/v4');
+const validUrl = require('valid-url');
 
 const bookmarksRouter = express.Router();
 const bodyParser = express.json();
-let counter = 3;
+
 
 bookmarksRouter
     .route('/bookmarks')
@@ -12,25 +14,41 @@ bookmarksRouter
         res.status(200).json(bookmarks)
     })
     .post(bodyParser, (req, res) => {
-        const { description, rating=5, title, url } = req.body; 
+        const { description, rating, title, url } = req.body; 
         if(!description) {
-            logger.error(`description is required`)
+            logger.error(`description is required`);
             return res.status(400).send(`Invalid data`);
         };
         if(!title) {
-            logger.error(`title is required`)
+            logger.error(`title is required`);
             return res.status(400).send(`Invalid data`);
         };
         if(!url) {
-            logger.error(`url is required`)
+            logger.error(`url is required`);
             return res.status(400).send(`Invalid data`);
         }
-        counter++;
-        const id = counter;
+        if(!validUrl.isUri(url)){
+            logger.error(`Not a valid url: ${url}`)
+            return res.status(400).send(`Invalid data`);
+        }
+        if(!rating) {
+            logger.error(`rating is required`);
+            return res.status(400).send(`Invalid data`);
+        }
+        if(!Number(rating)){
+            logger.error(`rating is not a number`)
+            return res.status(400).send(`Rating has to be between 0 and 5`);
+        }
+        if(rating<0 || rating>5) {
+            logger.error(`rating is out of bounds`);
+            return res.status(400).send(`Rating has to be between 0 and 5`);
+        }
+        
+        const id = uuid();
         const newBookmark = {
             description,
             id,
-            rating,
+            rating: Number(rating),
             title,
             url
         }
