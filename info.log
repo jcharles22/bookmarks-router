@@ -8,3 +8,21 @@
 {"message":"title is required","level":"error"}
 {"message":"url is required","level":"error"}
 {"message":"Bookmark with id 1 was not found.","level":"error"}
+{"message":"rating is required","level":"error"}
+{"message":"url is required","level":"error"}
+{"message":"title is required","level":"error"}
+{"message":"description is required","level":"error"}
+{"message":"rating is out of bounds","level":"error"}
+{"message":"rating is out of bounds","level":"error"}
+{"message":"rating is not a number","level":"error"}
+{"message":"rating is not a number","level":"error"}
+{"message":"Not a valid url: http","level":"error"}
+{"message":"Not a valid url: http//www.somewhere","level":"error"}
+{"message":"Not a valid url: http//www.somewhere.","level":"error"}
+{"message":"Not a valid url: http//www.somewhere.asd","level":"error"}
+{"message":"Not a valid url: http//www.somewhere.com","level":"error"}
+{"message":"Not a valid url: http/","level":"error"}
+{"message":"Not a valid url: www.whe","level":"error"}
+{"message":"Not a valid url: www.whe.asd","level":"error"}
+{"message":"Not a valid url: www.whe.com","level":"error"}
+{"message":"Not a valid url: www.google.com","level":"error"}
