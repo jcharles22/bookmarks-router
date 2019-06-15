@@ -26,3 +26,9 @@
 {"message":"Not a valid url: www.whe.asd","level":"error"}
 {"message":"Not a valid url: www.whe.com","level":"error"}
 {"message":"Not a valid url: www.google.com","level":"error"}
+{"message":"Bookmark with id 123456 was not found.","level":"error"}
+{"message":"Bookmark with id 2 was not found.","level":"error"}
+{"message":"Bookmark with id 123456 was not found.","level":"error"}
+{"message":"Bookmark with id 2 was not found.","level":"error"}
+{"message":"Bookmark with id 123 not found.","level":"error"}
+{"message":"Bookmark with id 2 was not found.","level":"error"}

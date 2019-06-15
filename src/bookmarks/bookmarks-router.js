@@ -1,8 +1,10 @@
+require('dotenv').config();
 const express = require('express');
 const logger = require('../logger');
 const bookmarks = require('../store.json');
 const uuid = require('uuid/v4');
 const validUrl = require('valid-url');
+const BookmarkServices = require('../bookmarks-services');
 
 const bookmarksRouter = express.Router();
 const bodyParser = express.json();
@@ -11,7 +13,17 @@ const bodyParser = express.json();
 bookmarksRouter
     .route('/bookmarks')
     .get((req, res) => {
-        res.status(200).json(bookmarks)
+        const knexInstance = req.app.get('db')
+        BookmarkServices.getAllBookmarks(knexInstance)
+        .then(bookmarks => {
+            console.log(bookmarks)
+            res.json(bookmarks.map(bookmark => ({
+                id: bookmark.id,
+                title: bookmark.title,
+                description: bookmark.description,
+                rating: bookmark.rating
+            })))
+        })
     })
     .post(bodyParser, (req, res) => {
         const { description, rating, title, url } = req.body; 
@@ -58,16 +70,28 @@ bookmarksRouter
 
 bookmarksRouter
     .route('/bookmarks/:id')
-    .get((req, res) => {
-        const { id } = req.params;
-        const bookmark = bookmarks.find(bookmark => bookmark.id == id);
-        if(!bookmark) {
-            logger.error(`Bookmark with id ${id} was not found.`)
-            res.status(404).send('Bookmark not found');
-        }
-        res.status(200).send(bookmark);
+    .get((req, res, next) => {
+        const knexInstance = req.app.get('db')
+        const { id } = req.params
+        BookmarkServices.getById(knexInstance, id)
+          .then(bookmark => {
+              if(!bookmark) {
+                  res.status(404).json({
+                      error: {message: `bookmark doesn't exist`}
+                  })
+              }
+               res.json({
+                 id: bookmark.id,
+                 title: bookmark.title,
+                 description: bookmark.description,
+                 rating: bookmark.rating
+                  })
+            console.log(bookmark)
+          })
+          .catch(next)
+      })
 
-    })
+    
     .delete((req, res) => {
         const { id } = req.params;
         const bookMarkId = bookmarks.findIndex(bookmarks => bookmarks.id == id);
