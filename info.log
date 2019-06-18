@@ -48,3 +48,7 @@
 {"message":"description is required","level":"error"}
 {"message":"rating is not a number","level":"error"}
 {"message":"description is required","level":"error"}
+{"message":"description is required","level":"error"}
+{"message":"rating is required","level":"error"}
+{"message":"description is required","level":"error"}
+{"message":"rating is required","level":"error"}

@@ -215,7 +215,7 @@ describe('Bookmarks Endpoints', () => {
     it(`responds with 400 missing 'url' if not supplied`, () => {
       const newBookmarkMissingUrl = {
         title: 'test-title',
-        // url: 'https://test.com',
+        url: 'https://test.com',
         rating: 1,
       }
       return supertest(app)
